@@ -53,7 +53,7 @@ begin
 
   process is
   begin
-    wait for E_TEST0;
+    wait until E_TEST0;
     report "HIT";
     wait;
   end process;
