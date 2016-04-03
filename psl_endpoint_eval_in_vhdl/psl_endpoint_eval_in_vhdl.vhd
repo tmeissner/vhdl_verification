@@ -19,6 +19,7 @@ architecture test of psl_endpoint_eval_in_vhdl is
   signal s_clk   : std_logic := '0';
   signal s_write : std_logic;
   signal s_read  : std_logic;
+  signal s_test0 : boolean;
 
 
 begin
@@ -56,6 +57,17 @@ begin
     wait until E_TEST0;
     report "HIT";
     wait;
+  end process;
+
+
+  process is
+  begin
+    wait until rising_edge(s_clk);
+    if (E_TEST0) then
+      s_test0 <= true;
+    else
+      s_test0 <= false;
+    end if;
   end process;
 
 
