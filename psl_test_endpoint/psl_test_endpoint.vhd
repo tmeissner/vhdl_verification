@@ -40,31 +40,21 @@ begin
     s_write <= '0';
     s_read  <= '0';
     wait until rising_edge(s_clk);
-    --stop(0);
+    stop(0);
     wait;
   end process TestP;
 
 
   -- psl default clock is rising_edge(s_clk);
   -- psl endpoint E_TEST0 is {not(s_write); s_write};
-  -- psl endpoint E_TEST1 is {s_write; s_write and not(s_read)};
-  -- psl sequence abc_seq is {not(s_write); s_write};
 
-  -- ASSERT0 should be passed, but not failed
-  -- ASSERT1 should be failed
-  -- ASSERT2 should not be passed
 
-  -- psl ASSERT0 : assert always {E_TEST0} |=> {s_read} report  "ASSERT0";
-  -- psl ASSERT1 : assert always {E_TEST0} |-> {s_read} report  "ASSERT1";
-  -- psl ASSERT2 : assert always {E_TEST1} |-> {s_read} report  "ASSERT2";
-
-  -- COVERAGE0..COVERAGE2 should all hit @ same time
-  -- COVERAGE3 should never hit
-
-  -- psl COVERAGE0 : cover {not(s_write); s_write} report "COVERED0";
-  -- psl COVERAGE1 : cover {abc_seq} report "COVERED1";
-  -- psl COVERAGE2 : cover {E_TEST0} report "COVERED2";
-  -- psl COVERAGE3 : cover {E_TEST1} report "COVERED3";
+  process is
+  begin
+    wait until E_TEST0;
+    report "HIT";
+    wait;
+  end process;
 
 
 end architecture test;
