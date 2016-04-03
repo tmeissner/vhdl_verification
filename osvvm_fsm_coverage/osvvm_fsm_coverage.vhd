@@ -112,9 +112,14 @@ begin
 
   -- psl default clock is rising_edge(s_clk);
 
-  -- psl IDLE_ADDR : assert always (s_fsm_state = IDLE) -> next (s_fsm_state = ADDR) abort not(s_reset_n);
-  -- psl ADDR_DATA : assert always (s_fsm_state = ADDR) -> next (s_fsm_state = DATA) abort not(s_reset_n);
-  -- psl DATA_IDLE : assert always (s_fsm_state = DATA) -> next (s_fsm_state = IDLE) abort not(s_reset_n);
+  -- psl IDLE_ADDR : assert always (s_fsm_state = IDLE and s_reset_n = '1') -> next (s_fsm_state = ADDR) abort not(s_reset_n)
+  --  report "FSM error: IDLE should be followed by ADDR state";
+
+  -- psl ADDR_DATA : assert always (s_fsm_state = ADDR and s_reset_n = '1') -> next (s_fsm_state = DATA) abort not(s_reset_n);
+  --  report "FSM error: ADDR should be followed by DATA state";
+
+  -- psl DATA_IDLE : assert always (s_fsm_state = DATA and s_reset_n = '1') -> next (s_fsm_state = IDLE) abort not(s_reset_n);
+  --  report "FSM error: DATA should be followed by IDLE state";
 
 
 end architecture sim;
