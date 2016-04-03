@@ -1,4 +1,4 @@
-OSVVM := OSVVM
+OSVVM := ../../OSVVM
 
 
 .PHONY: sim compile clean wave
